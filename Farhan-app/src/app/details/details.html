@@ -1,0 +1,51 @@
+<img
+  class="listing-photo"
+  [src]="housingLocation?.photo"
+  alt="Exterior photo of {{ housingLocation?.name }}"
+/>
+<section class="listing-description">
+  <h2 class="listing-heading">{{ housingLocation?.name }}</h2>
+  <p class="listing-location">{{ housingLocation?.city }}</p>
+</section>
+
+<section class="listing-features">
+  <h2 class="section-heading">About this housing location</h2>
+  <ul>
+    <li>Units available: {{ housingLocation?.availableUnits }}</li>
+    <li>Does this location have wifi: {{ housingLocation?.wifi }}</li>
+    <li>Does this location have laundry: {{ housingLocation?.laundry }}</li>
+  </ul>
+</section>
+<section class="listing-apply">
+  <h2 class="section-heading">Apply now to live here</h2>
+  <form [formGroup]="applyForm" (submit)="submitApplication()">
+    <label for="first-name">*First Name</label>
+    <input id="first-name" type="text" formControlName="firstName" />
+    <div
+      *ngIf="applyForm.get('firstName')?.hasError('required') && applyForm.get('firstName')?.touched"
+    >
+      <small class="error-field">Firstname is Required</small>
+    </div>
+
+    <label for="last-name">*Last Name</label>
+    <input id="last-name" type="text" formControlName="lastName" />
+    <div
+      *ngIf="applyForm.get('lastName')?.hasError('required') && applyForm.get('lastName')?.touched"
+    >
+      <small class="error-field">Lastname is Required</small>
+    </div>
+    <label for="email">*Email</label>
+    <input id="email" type="email" formControlName="email" />
+    <div
+      *ngIf="applyForm.get('email')?.hasError('required') && applyForm.get('email')?.touched"
+    >
+      <small class="error-field">Email is Required</small>
+    </div>
+    <div
+      *ngIf="applyForm.get('email')?.hasError('email') && applyForm.get('email')?.touched && applyForm.get('email')?.dirty"
+    >
+      <small>Enter a Valid Email</small>
+    </div>
+    <button type="submit" class="primary">Apply now</button>
+  </form>
+</section>

@@ -1,0 +1,25 @@
+<div class="home-container">
+  <div style="display: flex; align-items: center">
+    <img src="assets/image.png" alt="logo" width="100" height="130" />
+    <h1 class="branding-text" style="margin-left: 70px">Society's Choice</h1>
+  </div>
+  <section>
+    <form>
+      <input type="text" placeholder="Filter by city" #filter />
+      <button
+        class="primary"
+        type="button"
+        (click)="filterResults(filter.value)"
+      >
+        Search
+      </button>
+    </form>
+  </section>
+
+  <section class="results">
+    <app-component-2
+      *ngFor="let housingLocation of filteredLocationList"
+      [housingLocation]="housingLocation"
+    ></app-component-2>
+  </section>
+</div>
