@@ -1,13 +1,14 @@
 <section class="listing">
-  <ng-container *ngIf="housingLocation"></ng-container>
-  <img
-    class="listing-photo"
-    [src]="housingLocation.photo"
-    alt="Exterior photo of {{housingLocation.name}}"
-  />
-  <h2 class="listing-heading">{{ housingLocation.name }}</h2>
-  <p class="listing-location">
-    {{ housingLocation.city}}, {{housingLocation.state }}
-  </p>
-  <a [routerLink]="['details', housingLocation.id]">Learn More</a>
+  <ng-container *ngIf="housingLocations">
+    <div *ngFor="let items of housingLocations">
+      <img
+        class="listing-photo"
+        [src]="items.photo "
+        alt="Exterior photo of {{items.name}}"
+      />
+      <h2 class="listing-heading">{{ items.name }}</h2>
+      <p class="listing-location">{{ items.city}}, {{items.state }}</p>
+      <a [routerLink]="['details', items.id]">Learn More</a>
+    </div>
+  </ng-container>
 </section>

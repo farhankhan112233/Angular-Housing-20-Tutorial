@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { HousingService } from '../housing';
+import { HousingService } from '../../Services/housing';
 import { IhousingDetails } from '../IHousingDetails';
 import {
   FormControl,
@@ -24,11 +24,6 @@ export class Details {
   applyForm: any;
   constructor() {
     const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
-    this.housingService
-      .getHousingLocationById(housingLocationId)
-      .then((housingLocation) => {
-        this.housingLocation = housingLocation;
-      });
   }
   ngOnInit() {
     this.applyForm = new FormGroup({
@@ -44,10 +39,5 @@ export class Details {
 
       return;
     }
-    this.housingService.submitApplication(
-      this.applyForm.value.firstName,
-      this.applyForm.value.lastName,
-      this.applyForm.value.email
-    );
   }
 }
