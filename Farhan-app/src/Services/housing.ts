@@ -12,4 +12,7 @@ export class HousingService {
   getData(): Observable<IhousingDetails[]> {
     return this.httpService.get<IhousingDetails[]>(this.url);
   }
+  getById(id: number): Observable<IhousingDetails> {
+    return this.httpService.get<IhousingDetails>(this.url);
+  }
 }

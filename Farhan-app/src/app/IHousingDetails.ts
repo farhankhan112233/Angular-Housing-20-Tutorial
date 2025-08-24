@@ -1,10 +1,11 @@
 export interface IhousingDetails {
-  id: number;
+  id?: number;
   name: string;
   city: string;
   state: string;
   photo: string;
   availableUnits: number;
-  wifi: boolean;
-  laundry: boolean;
+  wifi: string;
+  laundry: string;
+  description: string;
 }
