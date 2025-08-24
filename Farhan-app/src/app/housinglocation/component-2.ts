@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
-import { IhousingDetails } from '../IHousingDetails';
 import { HousingService } from '../../Services/housing';
+import { IhousingDetails } from '../IHousingDetails';
 @Component({
   selector: 'app-component-2',
   imports: [CommonModule, RouterModule, RouterLink],
@@ -10,17 +10,21 @@ import { HousingService } from '../../Services/housing';
   styleUrls: ['./component-2.css'],
 })
 export class Component2 {
-  // @Input() housingLocation!: IhousingDetails;
   housingLocations: IhousingDetails[] = [];
   Service = inject(HousingService);
+  constructor() {}
+
   ngOnInit() {
+    this.getData();
+  }
+  private getData() {
     this.Service.getData().subscribe({
       next: (res) => {
         this.housingLocations = res;
       },
+      error: (err) => {
+        throw new err();
+      },
     });
-  }
-  ngDoCheck() {
-    console.log(this.housingLocations);
   }
 }
