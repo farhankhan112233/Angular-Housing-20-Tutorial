@@ -1,0 +1,24 @@
+<div class="dashboard">
+  <aside class="sidebar">
+    <h2 class="logo">🏢 Admin Panel</h2>
+    <nav>
+      <a routerLink="add" routerLinkActive="active"> Add Society</a>
+      <a routerLink="remove" routerLinkActive="active"> Remove Society</a>
+      <a routerLink="update" routerLinkActive="active"> Update Society</a>
+      <a routerLink="list" routerLinkActive="active"> All Societies</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <h1>Admin Dashboard</h1>
+      <div class="user-info">
+        <span>👤 Admin</span>
+      </div>
+    </header>
+
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</div>

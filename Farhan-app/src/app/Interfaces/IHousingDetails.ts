@@ -3,7 +3,7 @@ export interface IhousingDetails {
   name: string;
   city: string;
   state: string;
-  photo: string;
+  photo: File[];
   availableUnits: number;
   wifi: string;
   laundry: string;

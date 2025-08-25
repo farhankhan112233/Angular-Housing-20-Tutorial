@@ -8,7 +8,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../../Services/housing';
-import { IhousingDetails } from '../IHousingDetails';
+import { IhousingDetails } from '../Interfaces/IHousingDetails';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +21,8 @@ import { IhousingDetails } from '../IHousingDetails';
 export class Details {
   route = inject(ActivatedRoute);
   housingService = inject(HousingService);
-  housingLocation?: IhousingDetails[] = [];
+
+  housingLocation?: IhousingDetails;
   applyForm!: FormGroup;
   constructor() {
     let id = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,6 +42,7 @@ export class Details {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
+
   submitApplication() {
     if (this.applyForm.invalid) {
       this.applyForm.markAllAsTouched();
