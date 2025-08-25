@@ -1,0 +1,78 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <div class="logo-container">
+      <span class="logo">🏠</span>
+      <h2 class="title">
+        {{ isLogin ? 'Housing Society Login' : 'Housing Society Sign Up' }}
+      </h2>
+    </div>
+    <form *ngIf="isLogin" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+          placeholder="Enter username"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="auth-btn">Login</button>
+
+      <p class="switch-text">
+        Don't have an account?
+        <a (click)="toggleForm()">Sign Up</a>
+      </p>
+    </form>
+    <form *ngIf="!isLogin" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Enter full name"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Enter email"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="auth-btn">
+        Sign Up
+      </button>
+
+      <p class="switch-text">
+        Already have an account?
+        <a (click)="toggleForm()">Login</a>
+      </p>
+    </form>
+  </mat-card>
+</div>

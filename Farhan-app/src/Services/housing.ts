@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IhousingDetails } from '../app/IHousingDetails';
+import { IhousingDetails } from '../app/Interfaces/IHousingDetails';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,6 @@ export class HousingService {
     return this.httpService.get<IhousingDetails[]>(this.url);
   }
   getById(id: number): Observable<IhousingDetails> {
-    return this.httpService.get<IhousingDetails>(this.url);
+    return this.httpService.get<IhousingDetails>(`${this.url}/${id}`);
   }
 }
