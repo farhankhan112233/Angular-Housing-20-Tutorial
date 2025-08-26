@@ -6,7 +6,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
-import { LoadingService } from '../Services/loading-service';
+import { LoadingService } from '../../Services/loading-service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -19,6 +19,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.loadingService.start();
     return next.handle(req).pipe(
       finalize(() => {
+        console.log('Interceptor spinning');
         this.loadingService.stop();
       })
     );

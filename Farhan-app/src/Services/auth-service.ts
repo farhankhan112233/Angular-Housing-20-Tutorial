@@ -7,12 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  url: string = '';
   constructor(private http: HttpClient) {}
   loginCheck(dto: ILogin): Observable<any> {
-    return this.http.post<any>(this.url, dto);
+    return this.http.post<any>('https://localhost:7217/api/Auth/login', dto);
   }
   addUser(dto: ISignup): Observable<ISignup> {
-    return this.http.post<ISignup>(this.url, dto);
+    return this.http.post<ISignup>(
+      'https://localhost:7217/api/Auth/signup',
+      dto
+    );
   }
 }
