@@ -5,15 +5,18 @@ import {
 import { provideRouter } from '@angular/router';
 import 'zone.js';
 import { routes } from './Routes/app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
-import { LoadingInterceptor } from './loading-interceptor';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { LoadingInterceptor } from './Interceptors/loading-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(),
-
+    provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
 };

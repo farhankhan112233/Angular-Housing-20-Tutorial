@@ -53,30 +53,39 @@ export class Login {
   private SignupValues() {
     this.SignupForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
   }
   onSubmit() {
     if (this.isLogin) {
+      if (!this.LoginForm.valid) {
+        this.LoginForm.markAllAsTouched();
+        return;
+      }
       const pass = this.LoginForm.get('password')?.value;
       const hashed = CryptoJS.SHA256(pass).toString();
 
       const dto: ILogin = {
-        username: this.LoginForm.get('name')?.value,
+        username: this.LoginForm.get('username')?.value,
         password: hashed,
       };
       this._service.loginCheck(dto).subscribe({
-        next: (res) => {
-          if (res.status == 200) {
-            this.route.navigate(['homes']);
+        next: () => {
+          this.route.navigate(['homes']);
+        },
+        error: (err) => {
+          if (err.status == 400) {
+            this.LoginForm.setErrors({ invalidLogin: true });
           }
         },
-        error: () => {
-          debugger;
-        },
       });
-    } else if (!this.isLogin) {
+    } else {
+      if (!this.SignupForm.valid) {
+        this.SignupForm.markAllAsTouched();
+        return;
+      }
+
       const pass = this.SignupForm.get('password')?.value;
       const hashed = CryptoJS.SHA256(pass).toString();
 
@@ -87,7 +96,6 @@ export class Login {
       };
       this._service.addUser(dto).subscribe({
         next: () => {
-          alert('Registered');
           this.isLogin = true;
         },
         error: (err) => {

@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 
 import { LoadingService } from '../../Services/loading-service';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loading-spinner',
-  imports: [CommonModule],
+  imports: [CommonModule, AsyncPipe],
   templateUrl: './loading-spinner.html',
   styleUrl: './loading-spinner.css',
 })

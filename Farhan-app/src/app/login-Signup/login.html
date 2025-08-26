@@ -6,6 +6,9 @@
         {{ isLogin ? 'Housing Society Login' : 'Housing Society Sign Up' }}
       </h2>
     </div>
+    <div *ngIf="LoginForm.hasError('invalidLogin')" class="error-text">
+      Invalid username or password
+    </div>
     <form *ngIf="isLogin" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Username</mat-label>
@@ -15,6 +18,11 @@
           formControlName="username"
           placeholder="Enter username"
         />
+        <mat-error
+          *ngIf="LoginForm.get('username')?.hasError('required') && (LoginForm.get('username')?.touched || LoginForm.get('username')?.dirty)"
+        >
+          Username is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -25,8 +33,12 @@
           formControlName="password"
           placeholder="Enter password"
         />
+        <mat-error
+          *ngIf="LoginForm.get('password')?.hasError('required') && (LoginForm.get('password')?.touched || LoginForm.get('password')?.dirty)"
+        >
+          Password is required
+        </mat-error>
       </mat-form-field>
-
       <button mat-raised-button color="primary" class="auth-btn">Login</button>
 
       <p class="switch-text">
@@ -34,15 +46,21 @@
         <a (click)="toggleForm()">Sign Up</a>
       </p>
     </form>
+
     <form *ngIf="!isLogin" [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Full Name</mat-label>
+        <mat-label>User Name</mat-label>
         <input
           matInput
           type="text"
           formControlName="name"
-          placeholder="Enter full name"
+          placeholder="Username"
         />
+        <mat-error
+          *ngIf="SignupForm.get('name')?.hasError('required') && (SignupForm.get('name')?.touched || SignupForm.get('name')?.dirty)"
+        >
+          Name is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -53,6 +71,16 @@
           formControlName="email"
           placeholder="Enter email"
         />
+        <mat-error
+          *ngIf="SignupForm.get('email')?.hasError('required') && (SignupForm.get('email')?.touched || SignupForm.get('email')?.dirty)"
+        >
+          Email is required
+        </mat-error>
+        <mat-error
+          *ngIf="SignupForm.get('email')?.hasError('email') && (SignupForm.get('email')?.touched || SignupForm.get('email')?.dirty)"
+        >
+          Enter a valid email
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -63,7 +91,16 @@
           formControlName="password"
           placeholder="Enter password"
         />
+        <mat-error
+          *ngIf="SignupForm.get('password')?.hasError('required') && (SignupForm.get('password')?.touched || SignupForm.get('password')?.dirty)"
+        >
+          Password is required
+        </mat-error>
       </mat-form-field>
+
+      <div *ngIf="SignupForm.hasError('emailExists')" class="error-text">
+        Email already exists
+      </div>
 
       <button mat-raised-button color="primary" class="auth-btn">
         Sign Up
