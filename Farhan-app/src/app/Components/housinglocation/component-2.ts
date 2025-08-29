@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
-import { HousingService } from '../../Services/housing';
-import { IhousingDetails } from '../Interfaces/IHousingDetails';
+import { HousingService } from '../../../Services/housing';
+import { IhousingDetails } from '../../Interfaces/IHousingDetails';
 @Component({
   selector: 'app-component-2',
   imports: [CommonModule, RouterModule, RouterLink],

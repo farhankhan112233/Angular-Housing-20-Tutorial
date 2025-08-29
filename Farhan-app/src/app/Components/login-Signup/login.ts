@@ -13,8 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import CryptoJS from 'crypto-js';
-import { ILogin, ISignup } from '../Interfaces/ILoginInterface';
-import { AuthService } from '../../Services/auth-service';
+import { ILogin, ISignup } from '../../Interfaces/ILoginInterface';
+import { AuthService } from '../../../Services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -98,10 +98,7 @@ export class Login {
         next: () => {
           this.isLogin = true;
         },
-        error: (err) => {
-          debugger;
-          alert(err.status + err.message);
-        },
+        error: (err) => {},
       });
     }
   }

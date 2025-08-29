@@ -1,0 +1,149 @@
+<div class="admin-container">
+  <h2>Add New House</h2>
+  <form class="house-form" [formGroup]="housingForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Society Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter Society name"
+      />
+      <div
+        class="error"
+        *ngIf="housingForm.get('name')?.hasError('required') && (housingForm.get('name')?.touched || housingForm.get('name')?.dirty)"
+      >
+        Society Name is required
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          formControlName="city"
+          placeholder="Enter city"
+        />
+        <div
+          class="error"
+          *ngIf="housingForm.get('city')?.hasError('required') && (housingForm.get('city')?.touched || housingForm.get('city')?.dirty)"
+        >
+          City is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          type="text"
+          id="state"
+          formControlName="state"
+          placeholder="Enter state"
+        />
+        <div
+          class="error"
+          *ngIf="housingForm.get('state')?.hasError('required') && (housingForm.get('state')?.touched || housingForm.get('state')?.dirty)"
+        >
+          State is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="availableUnits">Available Units</label>
+      <input
+        type="number"
+        id="availableUnits"
+        formControlName="units"
+        min="1"
+        placeholder="e.g. 5"
+      />
+      <div
+        class="error"
+        *ngIf="housingForm.get('units')?.hasError('required') && (housingForm.get('units')?.touched || housingForm.get('units')?.dirty)"
+      >
+        Units are required
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="wifi">Wi-Fi</label>
+        <select id="wifi" formControlName="wifi">
+          <option value="">-- Select --</option>
+          <option value="Available">Available</option>
+          <option value="Not Available">Not Available</option>
+        </select>
+        <div
+          class="error"
+          *ngIf="housingForm.get('wifi')?.hasError('required') && (housingForm.get('wifi')?.touched || housingForm.get('wifi')?.dirty)"
+        >
+          Wi-Fi selection is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="laundry">Laundry</label>
+        <select id="laundry" formControlName="laundry">
+          <option value="">-- Select --</option>
+          <option value="Available">Available</option>
+          <option value="Not Available">Not Available</option>
+        </select>
+        <div
+          class="error"
+          *ngIf="housingForm.get('laundry')?.hasError('required') && (housingForm.get('laundry')?.touched || housingForm.get('laundry')?.dirty)"
+        >
+          Laundry selection is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Enter house description"
+      ></textarea>
+      <div
+        class="error"
+        *ngIf="housingForm.get('description')?.hasError('required') && (housingForm.get('description')?.touched || housingForm.get('description')?.dirty)"
+      >
+        Description is required
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="photo">Add Society Photos</label>
+      <input
+        type="file"
+        id="photo"
+        accept="image/*"
+        multiple
+        hidden
+        #fileInput
+        (change)="onFileSelected($event)"
+      />
+      <button type="button" class="photo-preview" (click)="fileInput.click()">
+        Choose Files
+      </button>
+
+      <div class="file-preview" *ngIf="selectedFiles.length > 0">
+        <div
+          class="file-item"
+          *ngFor="let file of selectedFiles; let i = index"
+        >
+          <span>{{ file.name }}</span>
+          <button id="remove-btn" type="button" (click)="removeFile(i)">
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Add House</button>
+  </form>
+</div>

@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AdminService } from '../../../Services/admin-service';
+import { AdminService } from '../../../../Services/admin-service';
 
 @Component({
   selector: 'app-add-housing-society',
@@ -17,7 +17,6 @@ import { AdminService } from '../../../Services/admin-service';
 export class AddHousingSociety {
   housingForm!: FormGroup;
   _service = inject(AdminService);
-  houseId!: any;
   selectedFiles: File[] = [];
   ngOnInit() {
     this.housingInput();
@@ -34,15 +33,30 @@ export class AddHousingSociety {
     });
   }
   onSubmit() {
-    if (this.housingForm.invalid) {
-      return alert('Fill All fields');
+    if (!this.housingForm.valid) {
+      this.housingForm.markAllAsTouched();
+      return;
     }
-    const dto = this.formValues();
+    const controls = this.formValues();
+    const formData = new FormData();
+    formData.append('name', controls.name);
+    formData.append('city', controls.city);
+    formData.append('state', controls.state);
+    formData.append('availableUnits', controls.availableUnits);
+    formData.append('wifi', controls.wifi);
+    formData.append('laundry', controls.laundry);
+    formData.append('description', controls.description);
 
-    this._service.AdminPost(dto).subscribe({
+    this.selectedFiles.forEach((file) => {
+      formData.append('photo', file);
+    });
+    this._service.AdminPost(formData).subscribe({
       next: (res) => {
-        this.houseId = res.id;
+        if (res.status == 200) {
+          this.housingForm.reset();
+        }
       },
+      error(err) {},
     });
   }
   onFileSelected(event: Event) {
@@ -50,23 +64,8 @@ export class AddHousingSociety {
     if (input.files && input.files.length > 0) {
       this.selectedFiles.push(...(Array.from(input.files) as File[]));
     }
-    console.log('Selected Files:', this.selectedFiles);
   }
 
-  uploadFiles() {
-    if (!this.selectedFiles || this.selectedFiles.length === 0) {
-      alert('Please select files first!');
-      return;
-    }
-    console.log(this.selectedFiles);
-    const formdata = new FormData();
-    formdata.append('housingId', this.houseId);
-
-    this.selectedFiles.forEach((file) => {
-      formdata.append('files', file);
-    });
-    this._service.uploadFiles(formdata);
-  }
   removeFile(index: number) {
     this.selectedFiles.splice(index, 1);
   }
@@ -77,7 +76,7 @@ export class AddHousingSociety {
       name: form.name,
       city: form.city,
       state: form.state,
-      units: form.units,
+      availableUnits: form.units,
       wifi: form.wifi,
       laundry: form.laundry,
       description: form.description,
