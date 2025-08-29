@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { LoadingService } from '../../Services/loading-service';
+import { LoadingService } from '../../../Services/loading-service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({

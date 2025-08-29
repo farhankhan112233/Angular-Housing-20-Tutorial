@@ -6,14 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminService {
-  private url = '';
   constructor(private http: HttpClient) {}
-  AdminPost(dto: any): Observable<any> {
-    return this.http.post<any>(this.url, dto, {
-      headers: { ContentType: 'Application/json' },
-    });
-  }
-  uploadFiles(formData: FormData) {
-    return this.http.post(this.url, formData);
+  AdminPost(dto: FormData): Observable<any> {
+    return this.http.post<any>('https://localhost:7217/api/Housing', dto);
   }
 }

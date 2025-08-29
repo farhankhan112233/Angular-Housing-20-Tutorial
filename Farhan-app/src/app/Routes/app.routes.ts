@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AdminPortal } from '../admin-portal/admin-portal';
-import { Details } from '../details/details';
-import { HomePage } from '../home-page/home-page';
-import { Login } from '../login-Signup/login';
-import { AddHousingSociety } from '../admin-portal/add-housing-society/add-housing-society';
-import { RemoveSociety } from '../admin-portal/remove-society/remove-society';
+import { AddHousingSociety } from '../Components/admin-portal/add-housing-society/add-housing-society';
+import { AdminPortal } from '../Components/admin-portal/admin-portal';
+import { RemoveSociety } from '../Components/admin-portal/remove-society/remove-society';
+import { Details } from '../Components/details/details';
+import { HomePage } from '../Components/home-page/home-page';
+import { Login } from '../Components/login-Signup/login';
 
 export const routes: Routes = [
   {

@@ -7,9 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HousingService } from '../../Services/housing';
-import { IhousingDetails } from '../Interfaces/IHousingDetails';
-import { HttpClient } from '@angular/common/http';
+import { HousingService } from '../../../Services/housing';
+import { IhousingDetails } from '../../Interfaces/IHousingDetails';
 
 @Component({
   selector: 'app-details',
