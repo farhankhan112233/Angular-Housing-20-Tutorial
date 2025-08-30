@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ILogin, ISignup } from '../app/Interfaces/ILoginInterface';
+import { ILogin, ISignup } from '../Interfaces/ILoginInterface';
 import { Observable } from 'rxjs';
 
 @Injectable({

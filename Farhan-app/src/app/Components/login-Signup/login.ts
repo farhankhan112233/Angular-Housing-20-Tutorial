@@ -14,7 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import CryptoJS from 'crypto-js';
 import { ILogin, ISignup } from '../../Interfaces/ILoginInterface';
-import { AuthService } from '../../../Services/auth-service';
+import { AuthService } from '../../Services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -98,7 +98,11 @@ export class Login {
         next: () => {
           this.isLogin = true;
         },
-        error: (err) => {},
+        error: (err) => {
+          if (err.status == 400) {
+            this.LoginForm.setErrors({ invalidLogin: true });
+          }
+        },
       });
     }
   }

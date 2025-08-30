@@ -11,3 +11,14 @@
 .listing-card a {
   padding: 0 15px 15px 15px;
 }
+#text {
+  text-decoration: none;
+  color: rgb(11, 78, 125);
+}
+#text:hover {
+  color: black;
+}
+.listing-location::before {
+  content: "📍";
+  margin-right: 4px;
+}
