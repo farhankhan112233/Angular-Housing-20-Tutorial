@@ -1,10 +1,4 @@
 import { Routes } from '@angular/router';
-import { AddHousingSociety } from '../Components/admin-portal/add-housing-society/add-housing-society';
-import { AdminPortal } from '../Components/admin-portal/admin-portal';
-import { RemoveSociety } from '../Components/admin-portal/remove-society/remove-society';
-import { Details } from '../Components/details/details';
-import { HomePage } from '../Components/home-page/home-page';
-import { Login } from '../Components/login-Signup/login';
 
 export const routes: Routes = [
   {
@@ -14,28 +8,40 @@ export const routes: Routes = [
   },
   {
     path: 'Auth',
-    component: Login,
+    loadComponent: () =>
+      import('../Components/login-Signup/login').then((x) => x.Login),
   },
   {
     path: 'homes/details/:id',
-    component: Details,
+    loadComponent: () =>
+      import('../Components/details/details').then((x) => x.Details),
   },
   {
     path: 'homes',
-    component: HomePage,
+    loadComponent: () =>
+      import('../Components/home-page/home-page').then((x) => x.HomePage),
   },
 
   {
     path: 'Admin',
-    component: AdminPortal,
-    children: [
+    loadComponent: () =>
+      import('../Components/admin-portal/admin-portal').then(
+        (x) => x.AdminPortal
+      ),
+    loadChildren: () => [
       {
         path: 'add',
-        component: AddHousingSociety,
+        loadComponent: () =>
+          import(
+            '../Components/admin-portal/add-housing-society/add-housing-society'
+          ).then((x) => x.AddHousingSociety),
       },
       {
         path: 'remove',
-        component: RemoveSociety,
+        loadComponent: () =>
+          import(
+            '../Components/admin-portal/remove-society/remove-society'
+          ).then((x) => x.RemoveSociety),
       },
     ],
   },

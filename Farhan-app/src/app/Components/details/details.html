@@ -1,26 +1,41 @@
-<img class="listing-photo" [src]="housingLocation?.photo" alt="Exterior photo of {{ housingLocation?.name }}" />
-<div class="listing-description">
-  <h2 class="listing-heading">{{ housingLocation?.name }}</h2>
-  <p class="listing-location">{{ housingLocation?.city }}</p>
+<swiper-container
+  slides-per-view="1"
+  pagination="true"
+  loop="true"
+  autoplay="true"
+  style="width: 100%; height: 500px"
+>
+  <swiper-slide *ngFor="let photo of houseDetails?.photo">
+    <img
+      [src]="photo"
+      alt="Exterior photo of {{houseDetails?.name}}"
+      style="width: 100%; height: 100%; object-fit: cover"
+    />
+  </swiper-slide>
+</swiper-container>
+<div>
+  <h2>{{ houseDetails?.name }}</h2>
+  <p>{{ houseDetails?.city }}</p>
 </div>
 
-<div class="listing-features">
-  <h2 class="section-heading">About this housing location</h2>
+<div>
+  <h2>About this housing location</h2>
   <ul>
-    <li>Units available: {{ housingLocation?.availableUnits }}</li>
-    <li>Does this location have wifi: {{ housingLocation?.wifi }}</li>
-    <li>Does this location have laundry: {{ housingLocation?.laundry }}</li>
+    <li>Houses: {{ houseDetails?.availableUnits }}</li>
+    <li>Wifi: {{ houseDetails?.wifi }}</li>
+    <li>Laundry: {{ houseDetails?.laundry }}</li>
   </ul>
 </div>
-<div class="listing-apply">
-  <h2 class="section-heading">Apply now to live here</h2>
+<button (click)="onApply()">Rent</button>
+<div *ngIf="apply">
+  <h2>Apply now to Recieve Details</h2>
   <form [formGroup]="applyForm" (submit)="submitApplication()">
     <label for="first-name">*First Name</label>
     <input id="first-name" type="text" formControlName="firstName" />
     <div
       *ngIf="applyForm.get('firstName')?.hasError('required') && applyForm.get('firstName')?.touched"
     >
-      <small class="error-field">Firstname is Required</small>
+      <small>Firstname is Required</small>
     </div>
 
     <label for="last-name">*Last Name</label>
@@ -28,20 +43,20 @@
     <div
       *ngIf="applyForm.get('lastName')?.hasError('required') && applyForm.get('lastName')?.touched"
     >
-      <small class="error-field">Lastname is Required</small>
+      <small>Lastname is Required</small>
     </div>
     <label for="email">*Email</label>
     <input id="email" type="email" formControlName="email" />
     <div
       *ngIf="applyForm.get('email')?.hasError('required') && applyForm.get('email')?.touched"
     >
-      <small class="error-field">Email is Required</small>
+      <small>Email is Required</small>
     </div>
     <div
       *ngIf="applyForm.get('email')?.hasError('email') && applyForm.get('email')?.touched && applyForm.get('email')?.dirty"
     >
       <small>Enter a Valid Email</small>
     </div>
-    <button type="submit" class="primary">Apply now</button>
+    <button type="submit">Apply now</button>
   </form>
 </div>

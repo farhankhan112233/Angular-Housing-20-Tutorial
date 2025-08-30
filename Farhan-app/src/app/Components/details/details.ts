@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HousingService } from '../../../Services/housing';
+import { HousingService } from '../../Services/housing';
 import { IhousingDetails } from '../../Interfaces/IHousingDetails';
 
 @Component({
@@ -16,20 +21,24 @@ import { IhousingDetails } from '../../Interfaces/IHousingDetails';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './details.html',
   styleUrls: ['./details.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Details {
   route = inject(ActivatedRoute);
   housingService = inject(HousingService);
-
-  housingLocation?: IhousingDetails;
+  apply: boolean = false;
+  houseDetails?: IhousingDetails;
   applyForm!: FormGroup;
   constructor() {
     let id = Number(this.route.snapshot.paramMap.get('id'));
     this.housingService.getById(id).subscribe({
-      next(res) {
-        // this.housingLocation = res;
+      next: (res) => {
+        this.houseDetails = res;
       },
     });
+  }
+  onApply() {
+    this.apply = true;
   }
   ngOnInit() {
     this.formValue();
@@ -48,5 +57,6 @@ export class Details {
 
       return;
     }
+    alert('Check Your Email For Detailed Info');
   }
 }

@@ -1,3 +1,13 @@
 .error-text {
   color: red;
 }
+#cursor {
+  text-decoration: none;
+  color: rgb(93, 26, 152);
+  cursor: pointer;
+}
+#cursor:hover {
+  color: darkblue;
+  font-size: 15px;
+  text-decoration: underline;
+}
