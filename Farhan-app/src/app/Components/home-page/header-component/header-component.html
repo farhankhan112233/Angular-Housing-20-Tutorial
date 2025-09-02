@@ -1,12 +1,21 @@
 <div class="header-wrapper">
   <p>🏠 Societies</p>
-  <div>
+
+  <div id="center">
     <a routerLink="homes">Home</a>
     <a href="#">About</a>
     <a href="#">Contact</a>
   </div>
-  <div>
-    <a routerLink="/Auth">Logout</a>
-    <a routerLink="/Admin">Admin Panel</a>
+
+  <div class="logout-wrapper" *ngIf="this.auth.checklogin()">
+    <a (click)="toggle()" id="logout-link">Logout</a>
+    <div class="logout-menu" *ngIf="showLogoutMenu">
+      <p>Are you sure?</p>
+      <button (click)="confirmLogout()">Confirm</button>
+      <button (click)="cancelLogout()">Cancel</button>
+    </div>
+    <div *ngIf="isAdmin">
+      <a routerLink="/Admin">Admin Panel</a>
+    </div>
   </div>
 </div>

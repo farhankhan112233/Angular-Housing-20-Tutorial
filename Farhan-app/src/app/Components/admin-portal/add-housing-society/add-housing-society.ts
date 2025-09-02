@@ -7,10 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { AdminService } from '../../../Services/admin-service';
-
+import { OnlyDigitsDirective } from '../../../Directives/validators';
 @Component({
   selector: 'app-add-housing-society',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, OnlyDigitsDirective],
   templateUrl: './add-housing-society.html',
   styleUrl: './add-housing-society.css',
 })
@@ -51,10 +51,9 @@ export class AddHousingSociety {
       formData.append('photo', file);
     });
     this._service.AdminPost(formData).subscribe({
-      next: (res) => {
-        if (res.status == 200) {
-          this.housingForm.reset();
-        }
+      next: () => {
+        this.housingForm.reset();
+        this.selectedFiles = [];
       },
       error(err) {},
     });

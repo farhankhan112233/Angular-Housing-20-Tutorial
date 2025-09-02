@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
+import { adminGuard, authGuard } from '../Route Gaurds/auth-guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'Auth',
-    pathMatch: 'full',
-  },
   {
     path: 'Auth',
     loadComponent: () =>
@@ -15,11 +11,13 @@ export const routes: Routes = [
     path: 'homes/details/:id',
     loadComponent: () =>
       import('../Components/details/details').then((x) => x.Details),
+    canActivate: [authGuard],
   },
   {
     path: 'homes',
     loadComponent: () =>
       import('../Components/home-page/home-page').then((x) => x.HomePage),
+    canActivate: [authGuard],
   },
 
   {
@@ -28,6 +26,7 @@ export const routes: Routes = [
       import('../Components/admin-portal/admin-portal').then(
         (x) => x.AdminPortal
       ),
+    canActivate: [authGuard, adminGuard],
     loadChildren: () => [
       {
         path: 'add',
@@ -35,6 +34,7 @@ export const routes: Routes = [
           import(
             '../Components/admin-portal/add-housing-society/add-housing-society'
           ).then((x) => x.AddHousingSociety),
+        canActivate: [authGuard, adminGuard],
       },
       {
         path: 'remove',
@@ -42,6 +42,7 @@ export const routes: Routes = [
           import(
             '../Components/admin-portal/remove-society/remove-society'
           ).then((x) => x.RemoveSociety),
+        canActivate: [authGuard, adminGuard],
       },
     ],
   },
