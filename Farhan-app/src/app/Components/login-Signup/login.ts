@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import CryptoJS from 'crypto-js';
 import { ILogin, ISignup } from '../../Interfaces/ILoginInterface';
 import { AuthService } from '../../Services/auth-service';
+import { LoginService } from '../../Services/login-service';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,12 @@ export class Login {
   LoginForm!: FormGroup;
   SignupForm!: FormGroup;
   route = inject(Router);
-  constructor(private _service: AuthService) {}
+
+  constructor(
+    private _service: AuthService,
+    private loginService: LoginService
+  ) {}
+
   toggleForm() {
     this.isLogin = !this.isLogin;
   }
@@ -57,6 +63,7 @@ export class Login {
       password: new FormControl('', Validators.required),
     });
   }
+
   onSubmit() {
     if (this.isLogin) {
       if (!this.LoginForm.valid) {
@@ -70,13 +77,16 @@ export class Login {
         username: this.LoginForm.get('username')?.value,
         password: hashed,
       };
-      this._service.loginCheck(dto).subscribe({
-        next: () => {
+      this.loginService.loginCheck(dto).subscribe({
+        next: (res) => {
+          this._service.login(res.token, res.reToken);
+
           this.route.navigate(['homes']);
         },
         error: (err) => {
           if (err.status == 400) {
             this.LoginForm.setErrors({ invalidLogin: true });
+            this._service.logout();
           }
         },
       });
@@ -94,7 +104,7 @@ export class Login {
         email: this.SignupForm.get('email')?.value,
         password: hashed,
       };
-      this._service.addUser(dto).subscribe({
+      this.loginService.addUser(dto).subscribe({
         next: () => {
           this.isLogin = true;
         },
